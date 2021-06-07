@@ -1,0 +1,277 @@
+Initail steps in cmd, before this notebook
+
+Way 1:
+Step 1: To create an environment with a specific version of Python:
+
+conda 	-n myenv python=3.6
+
+Way 2:
+#For python3:
+
+pip3 install virtualenv
+python3 -m venv <myenvname>
+
+#For python2:
+
+pip install virtualenv
+virtualenv <myenvname>
+
+--------------------------
+# Install flask in anaconda
+
+conda install -c anaconda flask
+conda install -c anaconda werkzeug
+
+--------------------------
+To know available env in conda
+
+conda info --envs
+
+--------------------------
+
+--------------------------
+Step 2:  To open Myenv jupiter notebook from cmd by giving full path and typing jupyter notebook
+
+(base) C:\Users\prabh\DS Project Toolkit\Project\Car_Price_Predict>jupyter notebook
+
+--------------------------
+
+To Install other library in my new env, run below one in cmd before pip command
+
+activate myenv 
+cd C:\Users\prabh\DS Project Toolkit\Project\Car_Price_Predict
+
+
+
+------------------------------------------DEPLOYMENT------------------------------------------------
+DEPLOY:
+After doing complete model build we need to deploy, for that we need to create pickle file, which is a serialized file
+which helps to create requirement.txt file through cmd
+
+-----------------------------------
+1)  pickle file:
+
+It helps to dump our model/ML project in the form of pickle file. Later this pickle file we need to deploy in PAAS(Heroku env)
+
+
+
+Way1: 
+Command in notepad:
+
+# Here it creates write byte mode file with name random_forest_regression_model.pkl
+
+import pickle
+file = open('random_forest_regression_model.pkl', 'wb')
+
+# dump information to that file  # Here rf_random is a model name which we built in py file
+pickle.dump(rf_random, file)   
+
+Wa2: 
+Command in notepad:
+
+import pickle
+
+# Saving model to disk   # Here (regressor is a model name which we built in py file
+pickle.dump(regressor, open('model.pkl','wb')) 
+
+
+-----------------------------------
+2) Requirement file: Some time few library wont be added in requiremen.txt, that time we need to pip install in that env end run the below command again
+
+
+Command in cmd:
+Way 1:
+
+activate myenv 
+pip freeze > requirements.txt
+
+
+Way 2:
+> But in my case it gave only 2 library inside requirement.txt file, so ran below one . gave many files.
+
+conda list -e > requirements.txt
+
+> Now the model file is created.
+
+Way 3:
+
+Make sure to run pip3 for python3.7.
+pip3 freeze >> requirements.txt
+
+-----------------------------------
+3) template folder and index file creation
+
+For web display, we need to create one folder in our proj folder with name templates and inside need to create index.html file
+index.html and app.py will have relationship and pass the value to display in web
+
+-----------------------------------
+4) Procfile
+
+A Procfile is a configuration file named Procfile . It should be named Procfile exactly, and not anything else. For example, Procfile.txt is not valid.
+It will tell which evvironment deploying like Heruku or other.
+
+A file named Procfile is required in the root of your Heroku project.
+
+gunicorn doesn't work on Windows so you'll want a Procfile.windows that will locally host your app in a way that doesn't require gunicorn (such as the way you would normally do it).
+
+
+Inside Procfile: write your own application name instead of app_name and file name just save without any Extention (Procfile).
+
+Inside:
+web: gunicorn app:app
+
+A Procfile is a mechanism for declaring what commands are run by your application's containers on the Deis platform. 
+It follows the process model. You can use a Procfile to declare various process types, such as multiple types of workers, 
+a singleton process like a clock, or a consumer of the Twitter streaming API.
+
+
+Create Proc file:
+
+In cmd write below line
+echo web: web: gunicorn app:app >Procfile
+
+
+> In above command 1st app is "app.py" file name and another app is flask name which defined as app inside app.py file
+
+Gunicorn :
+
+Gunicorn is one of many WSGI server implementations, but it's particularly important because it is a stable, commonly-used part of web app deployments that's powered some of the largest Python-powered web applications in the world, such as Instagram.
+
+Steps:
+Login to your Heroku account using CLI. ...
+Create a web app on Heroku. ...
+Create requirements.txtfile in the same project directory. ...
+Create a Procfile. ...
+Create runtime.txt to specify the Python version at runtime. ...
+Initialize an empty git repository and push the code.
+
+-----------------------------------
+5) app.py file
+
+Create app.py file manually in our project folder with necessory changes. This req for Web Display
+If it fails with any error of package installation, then pip install that and generate requirement.txt file again run below command
+
+Run app.py in our env in cmd: 
+
+python app.py
+
+End we will get one url,copy paste in chrome and run
+Ex:  http://127.0.0.1:5000/
+-----------------------------------------------------------------------------------
+DEPLOYMENT:Azure or Heruku platform
+
+HERUKU:
+Cloupplication Platform
+Heroku is a container-based cloud Platform as a Service (PaaS). Developers use Heroku to deploy, manage, and scale modern apps. 
+Our platform is elegant, flexible, and easy to use, offering developers the simplest path to getting their apps to market.
+
+1) Before deploy clone all our code project folder in github
+2) Heruku platform to deploy our code by creating new app(Providing app name)
+3) In deploy section "Deployment method" as Github, Provide outr github repository name and Repo name: Give our github carprediction folder name by searching there
+4) After connecting reponame, just "deploy Branch" option.
+5) Build master tab will show the deployment process
+6) After deployement click on view, we can get the web page we built for prediction.
+
+
+
+------------------------------------------GENERAL SCRIPT------------------------------------------------
+
+#To check Python version in cmd
+python -V
+
+df = pd.read_csv(r'./Dataset/car data.csv')
+df.head()
+df.info()
+print(df.Fuel_Type.unique())
+df.isnull().sum()
+df.shape
+df.describe()
+df.columns
+final_dataset = df[['Year', 'Selling_Price', 'Present_Price']]
+final_dataset.drop(['Year','Current_year'], axis = 1, inplace =True)
+rf_random = RandomForestRegressor()  --> Shift+ Tab to know related parameter in model
+
+--------------------------
+
+#Hyper parameter 
+# RF
+# No of trees in RF
+n_estimators = [int(x) for x in np.linspace(start =100, stop = 1200, num =12) ]
+# No of Features to consider at every split
+max_features = ['auto', 'sqrt']
+# Maximum no of levels in trees
+max_depth = [int(x) for x in np.linspace(start =5, stop = 30, num =6) ]
+#max_depth.append(None)
+# Minimum no of samples req to split a node
+min_samples_split = [2, 5, 10, 15, 100]
+# Minimum no of samples req at each leaf node
+min_samples_leaf = [1, 2, 5, 10]
+
+print(n_estimators)
+
+--------------------------
+#randomsearch cv, this is faster than gridsearch
+
+random_grid = {'n_estimators': n_estimators,
+               'max_features': max_features,
+               'max_depth': max_depth,
+               'min_samples_split': min_samples_split,
+               'min_samples_leaf': min_samples_leaf
+               
+              }
+print(random_grid)
+
+# First create the base model to tune
+rf = RandomForestRegressor()
+
+
+# Random search of parameters, using 5 fold cross validation, 
+# search across 500 different combinations
+rf_random = RandomizedSearchCV(estimator = rf, 
+                               param_distributions = random_grid,
+                               scoring='neg_mean_squared_error', 
+                               n_iter = 10, 
+                               cv = 5, 
+                               verbose=2,   #To display below value during fit
+                               random_state=42, 
+                               n_jobs = 1)
+
+
+--------------------------
+
+
+
+
+--------------------------
+##Onehot encoding
+final_dataset = pd.get_dummies(final_dataset, drop_first=True)
+
+--------------------------
+##Correlation
+final_dataset.corr()
+sns.pairplot(final_dataset)
+
+corrmat = final_dataset.corr()
+top_corr_features = corrmat.index
+plt.figure(figsize=(20,20))
+#Plot Heatmap
+g = sns.heatmap(final_dataset[top_corr_features].corr(), annot=True, cmap="RdYlGn")
+## here annot will enable col name in x and y axis
+
+
+--------------------------
+
+## Feature Importance
+
+model = ExtraTreesRegressor()
+model.fit(X,y)
+print(model.feature_importances_)
+#Create series with col
+feat_importance = pd.Series(model.feature_importances_, index = X.columns)
+print(feat_importance)
+#Order and take 1st 5 largest
+feat_importance.nlargest(5).plot(kind='barh')  
+#kind= 'barh' will give bar horizontal plot with index as bar name
+plt.show()
+
+--------------------------
