@@ -10,8 +10,29 @@
 - Feature Engineering steps in "**02 Feature Engineering**"
 - All different **ML Algorithms** with Examples"
 - Different **Boosting Tech** with Examples"
+  - 01 General
+  - 02 Feature Engineering
+  - 03 Linear Regression
+  - 04 Logistic Regression
+  - 05 Polynomial Regression
+  - 06 DecisionTree RandomForest
+  - 07 Naive Bayes
+  - 08 SVM
+  - 09 KNN
+  - 10 Ridge Lasso Regression
+  - 11 KMean Cluster Unsupervised
+  - 12 Agglomerative Hierarchy Cluster Unsupervised
+  - 13 Apriori Algorithm Association Rule
+  - 14 UB CB Recommendation
+  - 15 Reinforcement Learning
+  - 16 Time Series
+  - 17 Boosting_and_CV
+  - 18 Projects
+  - 19 Libraries
+  - 
 
 #### 2. Natural Language Processing (NLP):
+
 - Basic NLP Code
 - Advanced NLP Project
    - 01_DSH_NLP_Basic_Text_Mining
@@ -27,6 +48,7 @@
    - 11_DSH_NLP_Encoder_Decoder
 
 #### 3. Deep Learning(DL):
+
 - Basic DL Code, Explained Basic Neural Network ANN,CNN,RNN. (CNN with example)
      - Theory on (NN or ANN), CNN Object Detection and Image segmentation(RCNN, FastRCNN, Fater RCNN, YOLO), RNN (LSTM,GRU)
 - Advanced DL Concepts, not full project (
@@ -58,3 +80,4 @@
 #### 4. PYSPark:
 
 #### 5. WebScap:
+- WebScrapping Basic
