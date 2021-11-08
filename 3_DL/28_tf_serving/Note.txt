@@ -1,0 +1,5 @@
+Here actual model file saved location and docker pointing location(all character should be small) are different, so copied all code to docker pointing path
+
+actual model file saved location: C:\Users\prabh\DS Project Toolkit\DL\28_tf_serving
+
+docker pointing location: C:\Code\deep-learning-keras-tf-tutorial\28_tf_serving
