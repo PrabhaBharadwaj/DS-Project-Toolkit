@@ -1,0 +1,16 @@
+<network>
+	<restaurant>
+		<review_id>1</review_id>
+		<user_id>UI1</user_id>
+		<business_id>BI1</business_id>
+		<stars>1</stars>
+		<comment>ok good</comment>
+	</restaurant>
+	<restaurant>
+		<review_id>2</review_id>
+		<user_id>UI2</user_id>
+		<business_id>BI2</business_id>
+		<stars>2</stars>
+		<comment>ok average</comment>
+	</restaurant>
+</network>
